@@ -15,3 +15,14 @@ def generate_grid():
         if choice not in list_of_ukrainian_letters:
             list_of_ukrainian_letters.append(choice)
     return list_of_ukrainian_letters
+
+
+def get_words(f, letters):
+    list_of_suited_words = []
+    with open(f, 'r', encoding='utf-8') as file_with_words:
+        for line in file_with_words:
+            if 'noun' in line.strip().split()[-1] and len(line.strip().split()[0]) < 5:
+                print((line.strip().split()[0], line.strip().split()[-1][:line.strip().split()[-1].index(':')]))
+
+
+get_words('base.lst', ['1'])
