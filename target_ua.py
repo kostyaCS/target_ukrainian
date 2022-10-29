@@ -3,7 +3,6 @@ This module represents the game target but in Ukrainian
 """
 import random
 from typing import List
-import loguru
 
 
 def generate_grid() -> List[str]:
@@ -22,6 +21,7 @@ def generate_grid() -> List[str]:
 
 def get_words(f:str, letters:List[str]) -> List[str]:
     """
+    (str, list) -> list
     Gets the words that suited the following conditions
     """
     list_of_suited_words = []
@@ -45,3 +45,14 @@ def get_words(f:str, letters:List[str]) -> List[str]:
              len(line.strip().split()[0]) <= 5 and line.strip().split()[0][0] in letters:
                 list_of_suited_words.append((line.strip().split()[0], 'adjective'))
     return list_of_suited_words
+
+
+def check_user_words(user_words:List[str], language_part:str, letters:List[str], dict_of_words:List[str]) -> List[str]:
+    """
+    Checks user words and returns words, that suited the rules
+    """
+    missed_words = []
+    suited_words = []
+    for word in dict_of_words:
+        if word[0] not in user_words:
+            missed_words.append(word[0])
