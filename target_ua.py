@@ -47,12 +47,22 @@ def get_words(f:str, letters:List[str]) -> List[str]:
     return list_of_suited_words
 
 
-def check_user_words(user_words:List[str], language_part:str, letters:List[str], dict_of_words:List[str]) -> List[str]:
+def check_user_words(user_words:List[str], language_part:str, letters:List[str], dict_of_words:List[str]) -> tuple:
     """
     Checks user words and returns words, that suited the rules
     """
     missed_words = []
     suited_words = []
+    list_without_lists = []
+    for pair in dict_of_words:
+        for word in pair:
+            list_without_lists.append(word)
     for word in dict_of_words:
         if word[0] not in user_words:
             missed_words.append(word[0])
+    for word in user_words:
+        if word[0] in letters:
+            if word in list_without_lists:
+                if list_without_lists[list_without_lists.index(word) + 1] == language_part:
+                    suited_words.append(word)
+    return missed_words, suited_words
